@@ -5,3 +5,4 @@ dist-final/
 *.log
 .env
 .env.local
+CLAUDE.md

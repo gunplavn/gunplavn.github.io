@@ -25,6 +25,51 @@ const DIST_DIR = path.join(rootDir, 'dist');
 
 // Site config
 const SITE_URL = process.env.SITE_URL || 'https://gunplavn.github.io';
+const SITE_NAME = 'GunplaVN';
+const SITE_DESCRIPTION = 'Blog về Gunpla, model kit và kỹ thuật lắp ráp mô hình';
+const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og-default.jpg`;
+const FB_APP_ID = process.env.FB_APP_ID || ''; // Set your Facebook App ID here or via env
+
+// Calculate reading time (average 200 words per minute)
+function calculateReadingTime(text) {
+  const wordsPerMinute = 200;
+  const textOnly = text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ');
+  const wordCount = textOnly.split(' ').filter(word => word.length > 0).length;
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+  return minutes < 1 ? 1 : minutes;
+}
+
+// Minify CSS
+function minifyCSS(css) {
+  return css
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove comments
+    .replace(/\s+/g, ' ') // Collapse whitespace
+    .replace(/\s*([{}:;,>+~])\s*/g, '$1') // Remove spaces around special chars
+    .replace(/;}/g, '}') // Remove last semicolon in blocks
+    .replace(/^\s+|\s+$/g, ''); // Trim
+}
+
+// Minify JS (basic)
+function minifyJS(js) {
+  return js
+    .replace(/\/\/.*$/gm, '') // Remove single-line comments
+    .replace(/\/\*[\s\S]*?\*\//g, '') // Remove multi-line comments
+    .replace(/\s+/g, ' ') // Collapse whitespace
+    .replace(/\s*([{}:;,=()[\]<>!&|?+\-*\/])\s*/g, '$1') // Remove spaces around operators
+    .replace(/^\s+|\s+$/g, ''); // Trim
+}
+
+// Escape HTML for attribute values
+function escapeHtml(text) {
+  const htmlEntities = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;'
+  };
+  return String(text).replace(/[&<>"']/g, char => htmlEntities[char]);
+}
 
 // Ensure dist directories exist
 function ensureDir(dir) {
@@ -50,10 +95,20 @@ async function getPosts() {
     const { data, content: markdown } = matter(content);
 
     const slug = file.replace('.md', '');
-    const html = marked(markdown);
+
+    // Remove leading h1 title if it matches frontmatter title (to avoid duplication)
+    let processedMarkdown = markdown.trim();
+    const titleMatch = processedMarkdown.match(/^#\s+(.+?)[\r\n]/);
+    if (titleMatch && data.title && titleMatch[1].trim() === data.title.trim()) {
+      processedMarkdown = processedMarkdown.replace(/^#\s+.+?[\r\n]+/, '');
+    }
+
+    const html = marked(processedMarkdown);
 
     // Generate excerpt from content if not provided
     const defaultExcerpt = markdown.slice(0, 150).replace(/[#*`\n]/g, '').trim() + '...';
+
+    const readingTime = calculateReadingTime(markdown);
 
     posts.push({
       slug,
@@ -64,6 +119,7 @@ async function getPosts() {
       category: data.category || 'uncategorized',
       tags: data.tags || [],
       thumbnail: data.thumbnail || '/images/default-thumb.svg',
+      readingTime,
     });
   }
 
@@ -79,25 +135,43 @@ function getAllTags(posts) {
   return [...tagSet].sort();
 }
 
-// Apply base template
-function applyBase(content, title) {
+// Apply base template with SEO metadata
+function applyBase(content, options) {
+  const {
+    title,
+    description = SITE_DESCRIPTION,
+    canonicalUrl = SITE_URL,
+    ogType = 'website',
+    ogImage = DEFAULT_OG_IMAGE,
+  } = options;
+
   const base = readTemplate('base');
   return base
-    .replace(/{{title}}/g, title)
+    .replace(/{{title}}/g, escapeHtml(title))
+    .replace(/{{description}}/g, escapeHtml(description))
+    .replace(/{{canonicalUrl}}/g, canonicalUrl)
+    .replace(/{{ogType}}/g, ogType)
+    .replace(/{{ogImage}}/g, ogImage)
+    .replace(/{{fbAppId}}/g, FB_APP_ID)
     .replace('{{content}}', content);
 }
 
 // Generate post card HTML
 function generatePostCard(post) {
   return `
-    <article class="post-card" data-category="${post.category}" data-tags="${post.tags.join(',').toLowerCase()}">
+    <article class="post-card" data-category="${escapeHtml(post.category)}" data-tags="${escapeHtml(post.tags.join(',').toLowerCase())}">
       <a href="/posts/${post.slug}.html">
-        <img src="${post.thumbnail}" alt="${post.title}" class="post-thumb" loading="lazy">
+        <div class="post-thumb-wrapper">
+          <img src="${post.thumbnail}" alt="${escapeHtml(post.title)}" class="post-thumb" loading="lazy">
+          <span class="category" data-cat="${escapeHtml(post.category)}">${escapeHtml(post.category)}</span>
+        </div>
         <div class="post-card-content">
-          <span class="category" data-cat="${post.category}">${post.category}</span>
-          <h3>${post.title}</h3>
-          <time>${post.date}</time>
-          <p>${post.excerpt}</p>
+          <h3>${escapeHtml(post.title)}</h3>
+          <div class="post-card-meta">
+            <time>${post.date}</time>
+            <span class="reading-time">${post.readingTime} min read</span>
+          </div>
+          <p>${escapeHtml(post.excerpt)}</p>
         </div>
       </a>
     </article>
@@ -108,9 +182,9 @@ function generatePostCard(post) {
 function generatePopularPost(post) {
   return `
     <a href="/posts/${post.slug}.html" class="popular-post">
-      <img src="${post.thumbnail}" alt="${post.title}" loading="lazy">
+      <img src="${post.thumbnail}" alt="${escapeHtml(post.title)}" loading="lazy">
       <div class="popular-post-content">
-        <h4>${post.title}</h4>
+        <h4>${escapeHtml(post.title)}</h4>
         <time>${post.date}</time>
       </div>
     </a>
@@ -138,29 +212,44 @@ function buildPosts(posts, allTags) {
     }
 
     const relatedHtml = related.map(generatePopularPost).join('\n');
-    const tagsHtml = post.tags.map(t => `<span class="tag">${t}</span>`).join('');
-    const allTagsHtml = allTags.map(t => `<span class="category-tag">${t}</span>`).join('');
+    const tagsHtml = post.tags.map(t => `<a href="/?tag=${encodeURIComponent(t)}" class="tag">${escapeHtml(t)}</a>`).join('');
+    const allTagsHtml = allTags.map(t => `<a href="/?tag=${encodeURIComponent(t)}" class="tag-link">${escapeHtml(t)}</a>`).join('');
+    const postUrl = `${SITE_URL}/posts/${post.slug}.html`;
+    const ogImage = post.thumbnail.startsWith('http') ? post.thumbnail : `${SITE_URL}${post.thumbnail}`;
 
     let postHtml = template
-      .replace(/{{title}}/g, post.title)
+      .replace(/{{title}}/g, escapeHtml(post.title))
       .replace(/{{date}}/g, post.date)
-      .replace(/{{category}}/g, post.category)
+      .replace(/{{readingTime}}/g, `${post.readingTime} min read`)
+      .replace(/{{category}}/g, escapeHtml(post.category))
+      .replace(/{{fbAppId}}/g, FB_APP_ID)
       .replace('{{tags}}', tagsHtml)
       .replace('{{content}}', post.content)
       .replace('{{slug}}', post.slug)
-      .replace('{{url}}', `${SITE_URL}/posts/${post.slug}.html`)
+      .replace('{{url}}', postUrl)
       .replace('{{related}}', relatedHtml)
       .replace('{{allTags}}', allTagsHtml);
 
-    const fullHtml = applyBase(postHtml, `${post.title} | Gunpla Blog`);
+    const fullHtml = applyBase(postHtml, {
+      title: `${post.title} | GunplaVN`,
+      description: post.excerpt,
+      canonicalUrl: postUrl,
+      ogType: 'article',
+      ogImage,
+    });
     fs.writeFileSync(path.join(postsDir, `${post.slug}.html`), fullHtml);
   }
 
   console.log(`Built ${posts.length} post pages`);
 }
 
+// Generate clickable tag HTML
+function generateTagLink(tag) {
+  return `<a href="/?tag=${encodeURIComponent(tag)}" class="tag-link">${escapeHtml(tag)}</a>`;
+}
+
 // Build index page
-function buildIndex(posts) {
+function buildIndex(posts, allTags) {
   const template = readTemplate('index');
 
   // All posts in list format
@@ -169,11 +258,21 @@ function buildIndex(posts) {
   // Popular posts for sidebar (show first 5)
   const popularHtml = posts.slice(0, 5).map(generatePopularPost).join('\n');
 
+  // All tags as clickable links
+  const allTagsHtml = allTags.map(generateTagLink).join('');
+
   let indexHtml = template
     .replace('{{posts}}', postCardsHtml)
-    .replace('{{popular}}', popularHtml);
+    .replace('{{popular}}', popularHtml)
+    .replace('{{allTags}}', allTagsHtml);
 
-  const fullHtml = applyBase(indexHtml, 'Gunpla Blog - Tin Tức và Đánh Giá');
+  const fullHtml = applyBase(indexHtml, {
+    title: 'GunplaVN - Tin Tức và Đánh Giá',
+    description: SITE_DESCRIPTION,
+    canonicalUrl: SITE_URL,
+    ogType: 'website',
+    ogImage: DEFAULT_OG_IMAGE,
+  });
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), fullHtml);
 
   console.log('Built index page');
@@ -199,28 +298,32 @@ function buildSearchIndex(posts) {
   console.log('Built search index');
 }
 
-// Copy static assets
+// Copy and minify static assets
 function copyAssets() {
-  // Copy styles
+  const isProduction = process.env.NODE_ENV === 'production' || process.argv.includes('--minify');
+
+  // Copy and minify styles
   const stylesDistDir = path.join(DIST_DIR, 'styles');
   ensureDir(stylesDistDir);
   const styleFiles = fs.readdirSync(STYLES_DIR);
   for (const file of styleFiles) {
-    fs.copyFileSync(
-      path.join(STYLES_DIR, file),
-      path.join(stylesDistDir, file)
-    );
+    let content = fs.readFileSync(path.join(STYLES_DIR, file), 'utf-8');
+    if (isProduction && file.endsWith('.css')) {
+      content = minifyCSS(content);
+    }
+    fs.writeFileSync(path.join(stylesDistDir, file), content);
   }
 
-  // Copy JS
+  // Copy and minify JS
   const jsDistDir = path.join(DIST_DIR, 'js');
   ensureDir(jsDistDir);
   const jsFiles = fs.readdirSync(JS_DIR);
   for (const file of jsFiles) {
-    fs.copyFileSync(
-      path.join(JS_DIR, file),
-      path.join(jsDistDir, file)
-    );
+    let content = fs.readFileSync(path.join(JS_DIR, file), 'utf-8');
+    if (isProduction && file.endsWith('.js')) {
+      content = minifyJS(content);
+    }
+    fs.writeFileSync(path.join(jsDistDir, file), content);
   }
 
   // Copy public folder (images, etc.)
@@ -236,7 +339,48 @@ function copyAssets() {
     }
   }
 
-  console.log('Copied static assets');
+  console.log(`Copied static assets${isProduction ? ' (minified)' : ''}`);
+}
+
+// Generate sitemap.xml
+function buildSitemap(posts) {
+  const today = new Date().toISOString().split('T')[0];
+
+  let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_URL}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>`;
+
+  for (const post of posts) {
+    sitemap += `
+  <url>
+    <loc>${SITE_URL}/posts/${post.slug}.html</loc>
+    <lastmod>${post.date}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+  }
+
+  sitemap += '\n</urlset>';
+
+  fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
+  console.log('Built sitemap.xml');
+}
+
+// Generate robots.txt
+function buildRobotsTxt() {
+  const robotsTxt = `User-agent: *
+Allow: /
+
+Sitemap: ${SITE_URL}/sitemap.xml
+`;
+
+  fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), robotsTxt);
+  console.log('Built robots.txt');
 }
 
 // Main build function
@@ -255,8 +399,10 @@ async function build() {
 
   // Build everything
   buildPosts(posts, allTags);
-  buildIndex(posts);
+  buildIndex(posts, allTags);
   buildSearchIndex(posts);
+  buildSitemap(posts);
+  buildRobotsTxt();
   copyAssets();
 
   console.log('\nBuild complete!');

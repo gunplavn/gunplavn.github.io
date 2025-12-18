@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{canonicalUrl}}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="fb:app_id" content="{{fbAppId}}">
+  <meta property="og:type" content="{{ogType}}">
+  <meta property="og:url" content="{{canonicalUrl}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:image" content="{{ogImage}}">
+  <meta property="og:site_name" content="GunplaVN">
+  <meta property="og:locale" content="vi_VN">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="{{canonicalUrl}}">
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:image" content="{{ogImage}}">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -14,7 +34,7 @@
     <nav class="nav-container">
       <a href="/" class="logo">
         <span class="logo-icon">G</span>
-        Gunpla Blog
+        GunplaVN
       </a>
       <ul class="nav-links">
         <li><a href="/">Home</a></li>
@@ -23,16 +43,42 @@
         <li><a href="/?cat=tutorials">Tutorials</a></li>
         <li><a href="/?cat=tools">Tools</a></li>
       </ul>
-      <div class="nav-search">
+      <div class="nav-actions">
         <button class="search-btn" id="search-toggle" aria-label="Search">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8"></circle>
             <path d="M21 21l-4.35-4.35"></path>
           </svg>
         </button>
+        <button class="menu-btn" id="menu-toggle" aria-label="Menu">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12h18M3 6h18M3 18h18"></path>
+          </svg>
+        </button>
       </div>
     </nav>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="/">Home</a>
+      <a href="/?cat=builds">Builds</a>
+      <a href="/?cat=reviews">Reviews</a>
+      <a href="/?cat=tutorials">Tutorials</a>
+      <a href="/?cat=tools">Tools</a>
+    </div>
   </header>
+
+  <!-- Search Overlay -->
+  <div class="search-overlay" id="search-overlay">
+    <div class="search-overlay-content">
+      <button class="search-close" id="search-close" aria-label="Close search">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 6L6 18M6 6l12 12"></path>
+        </svg>
+      </button>
+      <input type="text" id="search-overlay-input" placeholder="Search posts..." autocomplete="off">
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>
 
   <main class="main-content">
     {{content}}
@@ -40,7 +86,7 @@
 
   <footer class="site-footer">
     <div class="footer-content">
-      <p>&copy; 2024 Gunpla Blog. Built with passion for plastic models.</p>
+      <p>&copy; 2025 GunplaVN. Built with <span style="color: #ef4444;">♥</span> for plastic models.</p>
     </div>
   </footer>
 

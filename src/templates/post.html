@@ -2,10 +2,11 @@
   <div class="main-column">
     <article class="post">
       <header class="post-header">
-        <span class="category" data-cat="{{category}}">{{category}}</span>
+        <a href="/?cat={{category}}" class="category" data-cat="{{category}}">{{category}}</a>
         <h1>{{title}}</h1>
         <div class="post-meta">
           <time>{{date}}</time>
+          <span class="reading-time">{{readingTime}}</span>
         </div>
         <div class="post-tags">
           {{tags}}
@@ -54,4 +55,4 @@
 <!-- Facebook SDK -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous"
-  src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0"></script>
+  src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v18.0&appId={{fbAppId}}"></script>

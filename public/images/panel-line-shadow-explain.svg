@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 350">
+  <defs>
+    <style>
+      .title { font: bold 20px 'Segoe UI', sans-serif; fill: #1a1a2e; }
+      .label { font: 14px 'Segoe UI', sans-serif; fill: #374151; }
+      .label-small { font: 12px 'Segoe UI', sans-serif; fill: #6b7280; }
+      .good { fill: #059669; }
+      .bad { fill: #dc2626; }
+    </style>
+    <!-- Light rays gradient -->
+    <linearGradient id="lightRay" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fef08a;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#fef08a;stop-opacity:0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="350" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="400" y="30" text-anchor="middle" class="title">Tai sao panel line luon TOI hon mau part?</text>
+
+  <!-- Left side: Correct physics -->
+  <g transform="translate(100, 70)">
+    <!-- Sun/Light source -->
+    <circle cx="50" cy="20" r="25" fill="#fbbf24"/>
+    <text x="50" y="60" text-anchor="middle" class="label-small">Anh sang</text>
+
+    <!-- Light rays -->
+    <line x1="75" y1="30" x2="150" y2="100" stroke="#fbbf24" stroke-width="2" opacity="0.6"/>
+    <line x1="70" y1="40" x2="130" y2="120" stroke="#fbbf24" stroke-width="2" opacity="0.6"/>
+    <line x1="65" y1="50" x2="110" y2="140" stroke="#fbbf24" stroke-width="2" opacity="0.6"/>
+
+    <!-- Part with groove - showing shadow in groove -->
+    <rect x="80" y="100" width="200" height="120" fill="#3b82f6" stroke="#2563eb" stroke-width="2" rx="4"/>
+
+    <!-- Groove (darker because no light reaches it) -->
+    <rect x="100" y="140" width="160" height="8" fill="#1e3a5f"/>
+
+    <!-- Arrow pointing to groove -->
+    <line x1="180" y1="175" x2="180" y2="155" stroke="#374151" stroke-width="1.5"/>
+    <polygon points="180,150 176,158 184,158" fill="#374151"/>
+
+    <text x="180" y="195" text-anchor="middle" class="label-small">Ranh khong nhan</text>
+    <text x="180" y="210" text-anchor="middle" class="label-small">duoc anh sang</text>
+    <text x="180" y="225" text-anchor="middle" class="label-small">→ TOI hon</text>
+
+    <!-- Check mark -->
+    <circle cx="180" cy="250" r="15" fill="#10b981"/>
+    <path d="M172 250 L178 256 L190 244" stroke="white" stroke-width="3" fill="none"/>
+    <text x="180" y="280" text-anchor="middle" class="good" style="font-weight:bold">TU NHIEN</text>
+  </g>
+
+  <!-- Right side: Wrong - bright line -->
+  <g transform="translate(450, 70)">
+    <!-- Sun/Light source -->
+    <circle cx="50" cy="20" r="25" fill="#fbbf24"/>
+    <text x="50" y="60" text-anchor="middle" class="label-small">Anh sang</text>
+
+    <!-- Light rays -->
+    <line x1="75" y1="30" x2="150" y2="100" stroke="#fbbf24" stroke-width="2" opacity="0.6"/>
+    <line x1="70" y1="40" x2="130" y2="120" stroke="#fbbf24" stroke-width="2" opacity="0.6"/>
+
+    <!-- Part with groove - showing WRONG bright line -->
+    <rect x="80" y="100" width="200" height="120" fill="#1f2937" stroke="#374151" stroke-width="2" rx="4"/>
+
+    <!-- WRONG: Bright line in groove -->
+    <rect x="100" y="140" width="160" height="8" fill="#e5e7eb"/>
+
+    <!-- Arrow pointing to groove -->
+    <line x1="180" y1="175" x2="180" y2="155" stroke="#374151" stroke-width="1.5"/>
+    <polygon points="180,150 176,158 184,158" fill="#374151"/>
+
+    <text x="180" y="195" text-anchor="middle" class="label-small">Ranh SANG hon</text>
+    <text x="180" y="210" text-anchor="middle" class="label-small">be mat?</text>
+    <text x="180" y="225" text-anchor="middle" class="label-small">→ VO LY!</text>
+
+    <!-- X mark -->
+    <circle cx="180" cy="250" r="15" fill="#dc2626"/>
+    <path d="M172 242 L188 258 M188 242 L172 258" stroke="white" stroke-width="3" fill="none"/>
+    <text x="180" y="280" text-anchor="middle" class="bad" style="font-weight:bold">KHONG TU NHIEN</text>
+  </g>
+
+  <!-- Bottom explanation -->
+  <rect x="150" y="310" width="500" height="30" fill="#fef3c7" rx="4"/>
+  <text x="400" y="330" text-anchor="middle" class="label" style="fill:#92400e">Panel line = Bong do = Luon TOI hon mau part</text>
+</svg>
