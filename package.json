@@ -1,0 +1,20 @@
+{
+  "name": "gunpla-blog",
+  "version": "1.0.0",
+  "description": "A blog about Gunpla, model kits, and building techniques",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/build.js && vite --host",
+    "build": "node scripts/build.js",
+    "preview": "node scripts/build.js && vite preview"
+  },
+  "keywords": ["gunpla", "gundam", "model-kit", "blog"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "glob": "^13.0.0",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.1",
+    "vite": "^7.3.0"
+  }
+}
