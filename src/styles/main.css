@@ -625,6 +625,61 @@ button {
   border-top: 1px solid var(--color-border);
 }
 
+/* Post Navigation */
+.post-navigation {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.post-nav-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--spacing-md);
+  background: var(--color-bg-alt);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.post-nav-link:hover {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+.post-nav-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+.post-nav-title {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-heading);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.post-nav-title svg {
+  flex-shrink: 0;
+  color: var(--color-primary);
+}
+
+.post-nav-prev .post-nav-title {
+  justify-content: flex-start;
+}
+
+.post-nav-next .post-nav-title {
+  justify-content: flex-end;
+}
+
 .back-link {
   font-weight: 500;
   display: inline-flex;
@@ -889,6 +944,19 @@ button {
 
   .post-header h1 {
     font-size: 1.75rem;
+  }
+
+  /* Post Navigation - Tablet */
+  .post-navigation {
+    flex-direction: row;
+  }
+
+  .post-nav-link {
+    flex: 1;
+  }
+
+  .post-nav-next {
+    text-align: right;
   }
 }
 

@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 1650">
+  <defs>
+    <style>
+      .title { font: bold 28px 'Segoe UI', sans-serif; fill: #1a1a2e; }
+      .step-num { font: bold 24px 'Segoe UI', sans-serif; fill: white; }
+      .step-title { font: bold 18px 'Segoe UI', sans-serif; fill: #1f2937; }
+      .step-desc { font: 14px 'Segoe UI', sans-serif; fill: #6b7280; }
+      .step-note { font: 14px 'Segoe UI', sans-serif; }
+      .tip-title { font: bold 18px 'Segoe UI', sans-serif; fill: #92400e; }
+      .tip-text { font: 13px 'Segoe UI', sans-serif; fill: #78350f; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="1650" fill="#f8fafc"/>
+
+  <!-- Title -->
+  <text x="250" y="40" text-anchor="middle" class="title">6 Bước Dán Decal Nước</text>
+
+  <!-- Step 1 -->
+  <g transform="translate(20, 60)">
+    <rect x="0" y="0" width="460" height="190" fill="white" stroke="#e5e7eb" stroke-width="2" rx="12"/>
+
+    <!-- Header -->
+    <circle cx="30" cy="30" r="22" fill="#3b82f6"/>
+    <text x="30" y="38" text-anchor="middle" class="step-num">1</text>
+    <text x="65" y="38" class="step-title">Cắt decal khỏi sheet</text>
+
+    <!-- Description -->
+    <text x="20" y="70" class="step-desc">Cắt sát mép decal, bỏ phần film trong suốt thừa</text>
+    <text x="20" y="95" class="step-note" style="fill:#dc2626">⚠ Phần trong dư = nguyên nhân gây silvering!</text>
+
+    <!-- Illustration - centered below text with more space -->
+    <g transform="translate(120, 115)">
+      <rect x="0" y="0" width="180" height="55" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5" rx="4"/>
+      <rect x="15" y="12" width="45" height="18" fill="#ef4444" rx="3"/>
+      <rect x="70" y="12" width="45" height="18" fill="#3b82f6" rx="3"/>
+      <rect x="125" y="12" width="45" height="18" fill="#22c55e" rx="3"/>
+      <!-- Scissors -->
+      <path d="M 165 35 L 195 18 M 165 48 L 195 65" stroke="#6b7280" stroke-width="3"/>
+      <circle cx="200" cy="18" r="8" fill="none" stroke="#6b7280" stroke-width="2"/>
+      <circle cx="200" cy="65" r="8" fill="none" stroke="#6b7280" stroke-width="2"/>
+      <!-- Cut line -->
+      <line x1="65" y1="38" x2="160" y2="38" stroke="#dc2626" stroke-width="2" stroke-dasharray="6,3"/>
+    </g>
+  </g>
+
+  <!-- Step 2 -->
+  <g transform="translate(20, 265)">
+    <rect x="0" y="0" width="460" height="190" fill="white" stroke="#e5e7eb" stroke-width="2" rx="12"/>
+
+    <circle cx="30" cy="30" r="22" fill="#3b82f6"/>
+    <text x="30" y="38" text-anchor="middle" class="step-num">2</text>
+    <text x="65" y="38" class="step-title">Ngâm nước 20-30 giây</text>
+
+    <text x="20" y="70" class="step-desc">Dùng nước ấm, cho đến khi decal tuột khỏi giấy nền</text>
+    <text x="20" y="95" class="step-note" style="fill:#f59e0b">💡 Kiểm tra: nhíp đẩy nhẹ, trượt được là OK</text>
+
+    <g transform="translate(80, 115)">
+      <rect x="0" y="0" width="180" height="55" fill="#dbeafe" stroke="#3b82f6" stroke-width="2" rx="6"/>
+      <rect x="5" y="5" width="170" height="45" fill="#93c5fd" rx="4"/>
+      <rect x="60" y="15" width="60" height="25" fill="#fef3c7" stroke="#f59e0b" stroke-width="1" rx="3" opacity="0.9"/>
+      <!-- Bubbles -->
+      <circle cx="35" cy="22" r="6" fill="#bfdbfe"/>
+      <circle cx="145" cy="35" r="7" fill="#bfdbfe"/>
+      <circle cx="45" cy="40" r="4" fill="#bfdbfe"/>
+      <!-- Timer -->
+      <circle cx="240" cy="28" r="32" fill="white" stroke="#6b7280" stroke-width="2"/>
+      <text x="240" y="35" text-anchor="middle" style="font:bold 16px sans-serif;fill:#374151">30s</text>
+    </g>
+  </g>
+
+  <!-- Step 3 -->
+  <g transform="translate(20, 470)">
+    <rect x="0" y="0" width="460" height="190" fill="white" stroke="#e5e7eb" stroke-width="2" rx="12"/>
+
+    <circle cx="30" cy="30" r="22" fill="#3b82f6"/>
+    <text x="30" y="38" text-anchor="middle" class="step-num">3</text>
+    <text x="65" y="38" class="step-title">Quét Setter lên bề mặt</text>
+
+    <text x="20" y="70" class="step-desc">Quét một lớp mỏng Setter lên vị trí sẽ đặt decal</text>
+    <text x="20" y="95" class="step-note" style="fill:#22c55e">✓ Setter = tăng độ bám, dùng TRƯỚC khi đặt decal</text>
+
+    <g transform="translate(60, 115)">
+      <rect x="0" y="0" width="180" height="55" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2" rx="6"/>
+      <ellipse cx="90" cy="28" rx="60" ry="18" fill="#93c5fd" opacity="0.7"/>
+      <!-- Brush -->
+      <rect x="165" y="-5" width="12" height="55" fill="#f59e0b" rx="2"/>
+      <ellipse cx="171" cy="52" rx="12" ry="7" fill="#d4a574"/>
+      <!-- Setter bottle -->
+      <rect x="210" y="0" width="55" height="55" fill="#3b82f6" stroke="#2563eb" stroke-width="2" rx="5"/>
+      <text x="237" y="32" text-anchor="middle" fill="white" style="font:bold 11px sans-serif">SETTER</text>
+    </g>
+  </g>
+
+  <!-- Step 4 -->
+  <g transform="translate(20, 675)">
+    <rect x="0" y="0" width="460" height="190" fill="white" stroke="#e5e7eb" stroke-width="2" rx="12"/>
+
+    <circle cx="30" cy="30" r="22" fill="#3b82f6"/>
+    <text x="30" y="38" text-anchor="middle" class="step-num">4</text>
+    <text x="65" y="38" class="step-title">Đặt decal vào vị trí</text>
+
+    <text x="20" y="70" class="step-desc">Trượt decal từ giấy nền vào vị trí mong muốn</text>
+    <text x="20" y="95" class="step-note" style="fill:#22c55e">✓ Còn ướt = còn trượt được, căn chỉnh ngay!</text>
+
+    <g transform="translate(80, 115)">
+      <rect x="0" y="0" width="180" height="55" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2" rx="6"/>
+      <rect x="60" y="12" width="60" height="30" fill="#ef4444" stroke="#dc2626" stroke-width="1" rx="4"/>
+      <text x="90" y="32" text-anchor="middle" fill="white" style="font:bold 11px sans-serif">RX-78</text>
+      <!-- Tweezers -->
+      <path d="M 200 -10 L 155 35 L 165 40 L 215 -8 Z" fill="#9ca3af" stroke="#6b7280" stroke-width="1"/>
+      <!-- Arrow -->
+      <path d="M 250 28 L 200 28" stroke="#22c55e" stroke-width="3"/>
+      <polygon points="200,28 212,20 212,36" fill="#22c55e"/>
+    </g>
+  </g>
+
+  <!-- Step 5 -->
+  <g transform="translate(20, 880)">
+    <rect x="0" y="0" width="460" height="210" fill="white" stroke="#e5e7eb" stroke-width="2" rx="12"/>
+
+    <circle cx="30" cy="30" r="22" fill="#3b82f6"/>
+    <text x="30" y="38" text-anchor="middle" class="step-num">5</text>
+    <text x="65" y="38" class="step-title">Thấm nước + Quét Softer</text>
+
+    <text x="20" y="70" class="step-desc">Ấn nhẹ tăm bông từ giữa ra, rồi quét Softer</text>
+    <text x="20" y="95" class="step-note" style="fill:#22c55e">✓ Để yên cho khô, decal sẽ ôm theo bề mặt</text>
+
+    <g transform="translate(30, 120)">
+      <!-- Part 1: Cotton swab -->
+      <rect x="0" y="0" width="130" height="70" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2" rx="6"/>
+      <rect x="35" y="22" width="60" height="26" fill="#ef4444" rx="4"/>
+      <ellipse cx="65" cy="10" rx="20" ry="14" fill="#f5f5f5" stroke="#d4d4d4" stroke-width="1"/>
+      <rect x="60" y="-25" width="10" height="35" fill="#d4a574"/>
+      <path d="M 65 55 L 65 75" stroke="#6b7280" stroke-width="3"/>
+      <polygon points="65,80 55,65 75,65" fill="#6b7280"/>
+      <text x="65" y="-32" text-anchor="middle" style="font:12px sans-serif;fill:#6b7280">Thấm nước</text>
+
+      <!-- Arrow between -->
+      <text x="175" y="40" text-anchor="middle" style="font:bold 24px sans-serif;fill:#9ca3af">→</text>
+
+      <!-- Part 2: Softer -->
+      <rect x="220" y="0" width="130" height="70" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2" rx="6"/>
+      <rect x="255" y="22" width="60" height="26" fill="#ef4444" rx="4"/>
+      <ellipse cx="285" cy="35" rx="40" ry="12" fill="#86efac" opacity="0.6"/>
+      <!-- Softer bottle -->
+      <rect x="360" y="-5" width="45" height="55" fill="#22c55e" stroke="#16a34a" stroke-width="2" rx="4"/>
+      <text x="382" y="28" text-anchor="middle" fill="white" style="font:bold 9px sans-serif">SOFTER</text>
+      <text x="285" y="-15" text-anchor="middle" style="font:12px sans-serif;fill:#6b7280">Quét Softer</text>
+    </g>
+  </g>
+
+  <!-- Step 6 -->
+  <g transform="translate(20, 1105)">
+    <rect x="0" y="0" width="460" height="190" fill="white" stroke="#e5e7eb" stroke-width="2" rx="12"/>
+
+    <circle cx="30" cy="30" r="22" fill="#3b82f6"/>
+    <text x="30" y="38" text-anchor="middle" class="step-num">6</text>
+    <text x="65" y="38" class="step-title">Xịt Topcoat bảo vệ</text>
+
+    <text x="20" y="70" class="step-desc">Đợi ít nhất 24h, xịt 2-3 lớp mỏng Topcoat</text>
+    <text x="20" y="95" class="step-note" style="fill:#22c55e">✓ Matte Topcoat ẩn viền decal - như được sơn!</text>
+
+    <g transform="translate(60, 115)">
+      <rect x="0" y="0" width="170" height="55" fill="#e5e7eb" stroke="#9ca3af" stroke-width="2" rx="6"/>
+      <rect x="55" y="12" width="60" height="30" fill="#ef4444" rx="4"/>
+      <ellipse cx="85" cy="27" rx="70" ry="35" fill="#d1d5db" opacity="0.4"/>
+      <!-- Spray can -->
+      <rect x="200" y="-5" width="65" height="65" fill="#6b7280" stroke="#4b5563" stroke-width="2" rx="6"/>
+      <rect x="222" y="-18" width="21" height="16" fill="#4b5563" rx="3"/>
+      <circle cx="232" cy="-22" r="6" fill="#9ca3af"/>
+      <!-- Spray lines -->
+      <line x1="200" y1="18" x2="170" y2="22" stroke="#9ca3af" stroke-width="2"/>
+      <line x1="200" y1="30" x2="160" y2="30" stroke="#9ca3af" stroke-width="2"/>
+      <line x1="200" y1="42" x2="170" y2="38" stroke="#9ca3af" stroke-width="2"/>
+    </g>
+  </g>
+
+  <!-- Tips section -->
+  <g transform="translate(20, 1310)">
+    <rect x="0" y="0" width="460" height="320" fill="#fef3c7" stroke="#f59e0b" stroke-width="2" rx="12"/>
+    <text x="230" y="32" text-anchor="middle" class="tip-title">MẸO QUAN TRỌNG</text>
+
+    <!-- Tips with more spacing -->
+    <g transform="translate(20, 60)">
+      <circle cx="15" cy="12" r="14" fill="#f59e0b"/>
+      <text x="15" y="17" text-anchor="middle" fill="white" style="font:bold 14px sans-serif">!</text>
+      <text x="42" y="17" class="tip-text">Phủ GLOSS COAT trước - bề mặt bóng giúp decal bám tốt</text>
+    </g>
+
+    <g transform="translate(20, 100)">
+      <circle cx="15" cy="12" r="14" fill="#f59e0b"/>
+      <text x="15" y="17" text-anchor="middle" fill="white" style="font:bold 14px sans-serif">!</text>
+      <text x="42" y="17" class="tip-text">Silvering? Dao chọc nhẹ + thêm Setter để khí thoát ra</text>
+    </g>
+
+    <g transform="translate(20, 140)">
+      <circle cx="15" cy="12" r="14" fill="#dc2626"/>
+      <text x="15" y="17" text-anchor="middle" fill="white" style="font:bold 14px sans-serif">X</text>
+      <text x="42" y="17" class="tip-text">KHÔNG chạm decal khi Softer chưa khô - dễ rách!</text>
+    </g>
+
+    <g transform="translate(20, 180)">
+      <circle cx="15" cy="12" r="14" fill="#dc2626"/>
+      <text x="15" y="17" text-anchor="middle" fill="white" style="font:bold 14px sans-serif">X</text>
+      <text x="42" y="17" class="tip-text">KHÔNG ngâm nước quá lâu - decal cuộn hoặc rách</text>
+    </g>
+
+    <g transform="translate(20, 220)">
+      <circle cx="15" cy="12" r="14" fill="#22c55e"/>
+      <text x="15" y="17" text-anchor="middle" fill="white" style="font:bold 12px sans-serif">OK</text>
+      <text x="42" y="17" class="tip-text">Bề mặt phẳng: chỉ Setter | Bề mặt cong: thêm Softer</text>
+    </g>
+
+    <!-- Formula -->
+    <rect x="15" y="260" width="430" height="45" fill="#fde68a" rx="6"/>
+    <text x="230" y="288" text-anchor="middle" style="font:bold 14px sans-serif;fill:#92400e">Gloss → Setter → Decal → Softer → 24h → Topcoat</text>
+  </g>
+</svg>

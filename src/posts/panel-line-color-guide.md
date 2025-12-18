@@ -1,15 +1,15 @@
 ---
 title: "Chọn Màu Panel Line Cho Part Gunpla Như Thế Nào?"
-date: 2024-12-18
+date: 2025-12-18
 category: tutorials
 tags: [panel-line, tutorial, beginner, tips]
-thumbnail: /images/panel-line-color-guide.svg
+thumbnail: /images/panel-line-color-guide/panel-line-color-guide.svg
 excerpt: "Tại sao part trắng không nên dùng line đen? Màu nào cho part đỏ? Bí kíp chọn màu panel line để Gunpla của bạn trông pro hơn!"
 ---
 
 ## TL;DR - Tóm Tắt Cho Ai Lười Đọc
 
-![Hướng dẫn chọn màu panel line](/images/panel-line-color-guide.svg)
+![Hướng dẫn chọn màu panel line](/images/panel-line-color-guide/panel-line-color-guide.svg)
 
 | Màu Nhựa | Màu Line Khuyên Dùng | Ghi Chú |
 |----------|---------------------|---------|
@@ -101,7 +101,7 @@ Câu hỏi này rất hay! Nhưng câu trả lời nằm ở **bản chất củ
 
 Khi ánh sáng chiếu vào vật thể có rãnh/khe, phần bên trong rãnh sẽ **tối hơn** vì ánh sáng không chiếu tới được. Không có vật thể nào trong tự nhiên có khe mà bên trong lại SÁNG hơn bề mặt!
 
-![Tại sao panel line luôn tối hơn màu part](/images/panel-line-shadow-explain.svg)
+![Tại sao panel line luôn tối hơn màu part](/images/panel-line-color-guide/panel-line-shadow-explain.svg)
 
 Nếu dùng line trắng/sáng trên part đen, nó sẽ trông như:
 - Đường viền vẽ tay (outline) - không tự nhiên
@@ -118,7 +118,7 @@ Nếu dùng line trắng/sáng trên part đen, nó sẽ trông như:
 
 Có những trường hợp đặc biệt mà line sáng (trắng, xanh neon, hồng...) được sử dụng - nhưng đây là **kỹ thuật khác**, không phải panel lining truyền thống:
 
-![Hiệu ứng đặc biệt với line sáng](/images/special-effects-lines.svg)
+![Hiệu ứng đặc biệt với line sáng](/images/panel-line-color-guide/special-effects-lines.svg)
 
 **1. Edge Highlighting**
 - Tô sáng các **cạnh nổi** của part (không phải rãnh)
@@ -139,7 +139,7 @@ Có những trường hợp đặc biệt mà line sáng (trắng, xanh neon, h�
 
 ## So Sánh Trực Quan: Đúng vs Sai
 
-![So sánh đúng sai khi chọn màu panel line](/images/panel-line-comparison.svg)
+![So sánh đúng sai khi chọn màu panel line](/images/panel-line-color-guide/panel-line-comparison.svg)
 
 Nhìn hình trên bạn sẽ thấy rõ sự khác biệt:
 - **Part trắng + line đen:** Nhìn như bị ai vẽ bậy, đường nét quá nổi

@@ -78,6 +78,21 @@ function ensureDir(dir) {
   }
 }
 
+// Recursively copy directory
+function copyDirRecursive(src, dest) {
+  ensureDir(dest);
+  const entries = fs.readdirSync(src, { withFileTypes: true });
+  for (const entry of entries) {
+    const srcPath = path.join(src, entry.name);
+    const destPath = path.join(dest, entry.name);
+    if (entry.isDirectory()) {
+      copyDirRecursive(srcPath, destPath);
+    } else {
+      fs.copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
 // Read template file
 function readTemplate(name) {
   return fs.readFileSync(path.join(TEMPLATES_DIR, `${name}.html`), 'utf-8');
@@ -191,13 +206,32 @@ function generatePopularPost(post) {
   `;
 }
 
+// Generate prev/next post navigation HTML
+function generatePostNav(post, label, direction) {
+  if (!post) return '';
+  const arrow = direction === 'prev'
+    ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>'
+    : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+
+  return `
+    <a href="/posts/${post.slug}.html" class="post-nav-link post-nav-${direction}">
+      <span class="post-nav-label">${label}</span>
+      <span class="post-nav-title">${direction === 'prev' ? arrow : ''}${escapeHtml(post.title)}${direction === 'next' ? arrow : ''}</span>
+    </a>
+  `;
+}
+
 // Build individual post pages
 function buildPosts(posts, allTags) {
   const template = readTemplate('post');
   const postsDir = path.join(DIST_DIR, 'posts');
   ensureDir(postsDir);
 
-  for (const post of posts) {
+  for (let i = 0; i < posts.length; i++) {
+    const post = posts[i];
+    // Posts are sorted newest first, so prev = newer (i-1), next = older (i+1)
+    const prevPost = i > 0 ? posts[i - 1] : null;
+    const nextPost = i < posts.length - 1 ? posts[i + 1] : null;
     // Get related posts (same category, excluding current)
     const related = posts
       .filter(p => p.slug !== post.slug && p.category === post.category)
@@ -217,6 +251,9 @@ function buildPosts(posts, allTags) {
     const postUrl = `${SITE_URL}/posts/${post.slug}.html`;
     const ogImage = post.thumbnail.startsWith('http') ? post.thumbnail : `${SITE_URL}${post.thumbnail}`;
 
+    const prevPostHtml = generatePostNav(prevPost, 'Bài mới hơn', 'prev');
+    const nextPostHtml = generatePostNav(nextPost, 'Bài cũ hơn', 'next');
+
     let postHtml = template
       .replace(/{{title}}/g, escapeHtml(post.title))
       .replace(/{{date}}/g, post.date)
@@ -228,7 +265,9 @@ function buildPosts(posts, allTags) {
       .replace('{{slug}}', post.slug)
       .replace('{{url}}', postUrl)
       .replace('{{related}}', relatedHtml)
-      .replace('{{allTags}}', allTagsHtml);
+      .replace('{{allTags}}', allTagsHtml)
+      .replace('{{prevPost}}', prevPostHtml)
+      .replace('{{nextPost}}', nextPostHtml);
 
     const fullHtml = applyBase(postHtml, {
       title: `${post.title} | GunplaVN`,
@@ -326,17 +365,11 @@ function copyAssets() {
     fs.writeFileSync(path.join(jsDistDir, file), content);
   }
 
-  // Copy public folder (images, etc.)
+  // Copy public folder (images, etc.) recursively
   const imagesDistDir = path.join(DIST_DIR, 'images');
   ensureDir(imagesDistDir);
   if (fs.existsSync(path.join(PUBLIC_DIR, 'images'))) {
-    const imageFiles = fs.readdirSync(path.join(PUBLIC_DIR, 'images'));
-    for (const file of imageFiles) {
-      fs.copyFileSync(
-        path.join(PUBLIC_DIR, 'images', file),
-        path.join(imagesDistDir, file)
-      );
-    }
+    copyDirRecursive(path.join(PUBLIC_DIR, 'images'), imagesDistDir);
   }
 
   console.log(`Copied static assets${isProduction ? ' (minified)' : ''}`);
